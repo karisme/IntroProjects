@@ -38,10 +38,23 @@ export default function Home({ allPostsData }) {
 }
 
 export async function getStaticProps() {
+  // getStaticProps runs only on the server-side. It will never run on the client-side. 
+  // It won’t even be included in the JS bundle for the browser. I can put API requests, database queries etc...
+  // In prod, only run at build time so need server-side rendering if ish is changing -> SEE BELOW
   const allPostsData = getSortedPostsData()
   return {
     props: {
       allPostsData
+    }
+  }
+}
+
+// if i want to use JS to load, and keep static parts: https://swr.vercel.app/
+
+export async function getServerSideProps(context) {
+  return {
+    props: {
+      // blahblah
     }
   }
 }
